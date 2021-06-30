@@ -6,6 +6,7 @@
     "npm",
     "learn"
   ],
+  "license": "MIT",
   "author": "tanimon",
   "dependencies": {
     "express": "^4.14.0"
