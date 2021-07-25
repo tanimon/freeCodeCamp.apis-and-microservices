@@ -46,10 +46,16 @@ app.get("/:word/echo", (req, res) => {
   res.json({ echo: word });
 });
 
-app.get("/name", (req, res) => {
-  const firstName = req.query.first;
-  const lastName = req.query.last;
-  res.json({ name: `${firstName} ${lastName}` });
-});
+app
+  .get("/name", (req, res) => {
+    const firstName = req.query.first;
+    const lastName = req.query.last;
+    res.json({ name: `${firstName} ${lastName}` });
+  })
+  .post("/name", (req, res) => {
+    const firstName = req.body.first;
+    const lastName = req.body.last;
+    res.json({ name: `${firstName} ${lastName}` });
+  });
 
 module.exports = app;
