@@ -28,6 +28,34 @@ app.get("/api/hello", function (req, res) {
   res.json({ greeting: "hello API" });
 });
 
+import moment from "moment";
+
+app.get("/api/", (_, res) => {
+  const now = new Date();
+  res.json({ unix: now.getTime(), utc: now.toUTCString() });
+});
+
+app.get("/api/:date", (req, res) => {
+  const paramDate = req.params.date;
+  const date = !isNaN(paramDate)
+    ? new Date(parseInt(paramDate))
+    : moment.utc(paramDate, "YYYY-MM-DD", true).isValid()
+    ? new Date(paramDate)
+    : moment.utc(paramDate, "DD MMMM YYYY", true).isValid()
+    ? moment.utc(paramDate, "DD MMMM YYYY").toDate()
+    : undefined;
+
+  if (!date) {
+    res.status(400).json({ error: "Invalid Date" });
+    return;
+  }
+
+  const unix = date.getTime();
+  const utc = date.toUTCString();
+
+  res.json({ unix, utc });
+});
+
 // listen for requests :)
 var listener = app.listen(process.env.PORT ?? 3000, function () {
   console.log("Your app is listening on port " + listener.address().port);
