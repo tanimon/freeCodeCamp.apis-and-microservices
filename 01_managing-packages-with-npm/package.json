@@ -10,7 +10,7 @@
   "license": "MIT",
   "author": "tanimon",
   "dependencies": {
-    "express": "^4.14.0"
+    "express": "^4.17.3"
   },
   "main": "server.js",
   "scripts": {
